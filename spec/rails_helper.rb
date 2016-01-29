@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'database_cleaner'
+require 'capybara/rspec'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -32,6 +33,7 @@ RSpec.configure do |config|
     config.after(:each) do
       DatabaseCleaner.clean
     end
+  config.include Devise::TestHelpers, :type => :controller
 
   config.use_transactional_fixtures = false
 
