@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 <h1><%= @user.first_name %> <%= @user.last_name%></h1>
+<%= render 'shared/stats' %>
 
 <%= render 'form' %>
 <div id="tweets">
   <%= render 'tweet' %>
 </div>
+<h3>Follow other users</h3>
+<%= render 'shared/all_users' %>

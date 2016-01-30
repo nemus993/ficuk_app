@@ -4,6 +4,7 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweets = current_user.tweets.all.order('tweets.created_at DESC')
+    @users = User.all
     @user = current_user
     respond_to do |format|
       format.html

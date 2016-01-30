@@ -1,3 +1,6 @@
+<h1><%= @user.first_name%> <%= @user.last_name%></h1>
+<%= render 'shared/stats' %>
+<%= render 'follow_form' %>
 <table>
   <thead>
     <tr>
@@ -5,18 +8,15 @@
       <th colspan="2"></th>
     </tr>
   </thead>
-
   <tbody>
-    <% @tweets.each do |tweet| %>
+    <% @user.tweets.each do |tweet| %>
       <tr>
         <td><%= tweet.content %></td>
-        <td><%= link_to 'Show', tweet_path(tweet.id) %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <tr>
-        <td><p>Tweeted <%= time_ago_in_words(tweet.created_at) %> ago</p></td>
+        <td><p>Tweeted <%= time_ago_in_words(tweet.created_at) %>ago</p></td>
       </tr>
-      <br/>
     <% end %>
   </tbody>
 </table>

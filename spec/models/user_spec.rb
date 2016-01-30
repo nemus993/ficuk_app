@@ -6,6 +6,11 @@ RSpec.describe User, type: :model do
                 birthday: "1960-08-08", email: "example@gmail.com",
                 password: "example1234", password_confirmation: "example1234")
   end
+  let(:user2) do
+    User.create(first_name: "Anne", last_name: "Smith",
+    birthday: "1960-08-08", email: "1234@gmail.com",
+    password: "password", password_confirmation: "password")
+  end
 
   it 'is valid' do
     expect(user).to be_valid
@@ -36,5 +41,14 @@ RSpec.describe User, type: :model do
   it 'has many tweets' do
     user.tweets.build(content: "Example tweet!")
     expect(user.tweets.map(&:content)).to eq(['Example tweet!'])
+  end
+  it 'has many relationships' do
+    user.active_relationships.build(follower_id:user.id, followed_id:user2.id)
+    expect(user.active_relationships.map(&:follower_id)).to eq([1])
+  end
+  it 'can follow other users' do
+    expect(user.following?(user2)).not_to be true
+    user.follow(user2)
+    expect(user.following?(user2)).to be true
   end
 end
