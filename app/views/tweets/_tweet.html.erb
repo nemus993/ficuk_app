@@ -8,7 +8,7 @@
 
   <tbody>
     <% @tweets.each do |tweet| %>
-      <tr>
+      <tr id="tweet">
         <td><%= tweet.content %></td>
         <td><%= link_to 'Show', tweet_path(tweet.id) %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>

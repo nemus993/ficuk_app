@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
   end
   it 'has many relationships' do
     user.active_relationships.build(follower_id:user.id, followed_id:user2.id)
-    expect(user.active_relationships.map(&:follower_id)).to eq([1])
+    expect(user.active_relationships.map(&:follower_id)).to eq([user.id])
   end
   it 'can follow other users' do
     expect(user.following?(user2)).not_to be true

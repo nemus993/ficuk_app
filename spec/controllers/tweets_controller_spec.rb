@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe TweetsController, type: :controller do
 
   let(:valid_attributes) {
-    { content: "Example tweet!", user_id: 1 }
+    { content: "Example tweet!", user_id: @user.id }
   }
 
   let(:invalid_attributes) {
@@ -13,8 +13,8 @@ RSpec.describe TweetsController, type: :controller do
 
   before :each do
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    user = User.create( first_name: "John", last_name: "Doe", email: "123@gmail.com", birthday: "1960-08-09", password: "1234example", password_confirmation: "1234example")
-    sign_in user
+    @user = User.create( first_name: "John", last_name: "Doe", email: "123@gmail.com", birthday: "1960-08-09", password: "1234example", password_confirmation: "1234example")
+    sign_in @user
   end
 
   describe "GET #index" do
@@ -66,9 +66,9 @@ RSpec.describe TweetsController, type: :controller do
         expect(assigns(:tweet)).to be_a_new(Tweet)
       end
 
-      it "re-renders the 'new' template" do
+      it "flashes a notice and re-renders form" do
         post :create, {:tweet => invalid_attributes}
-        expect(response).to render_template("new")
+        expect(response).to redirect_to(tweets_path)
       end
     end
   end
